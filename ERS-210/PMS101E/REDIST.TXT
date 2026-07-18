@@ -1,0 +1,191 @@
+
+For the customers who downloaded this software, the following terms and conditions shall apply:
+
+IMPORTANT - READ CAREFULLY:  The following End-User License Agreement ("EULA") is a legal agreement between you and Sony Corporation ("SONY").  You may use this software (the "Software") to create application software for SONY's entertainment robot ("Entertainment Robot") only.  BY DOWNLOADING THE SOFTWARE, YOU AGREE TO BE BOUND BY THE TERMS OF EULA.  
+
+
+END-USER LICENSE AGREEMENT 
+
+
+1. LICENSE
+The Software is protected by copyright laws and international copyright treaties, as well as other intellectual property laws and treaties.  The Software is licensed, not sold.  
+
+2. GRANT OF LICENSE
+This EULA grants you the following rights:
+2.1 Software.  You have a non-exclusive and non-transferable license, with no right to grant sub-licenses, to install one (1) copy of the Software on the harddisk of your personal computer and use such one (1) copy of the Software on such personal computer to create application software for the Entertainment Robot for personal use purposes only. 
+2.2 torage/Network Use.  You may not distribute the Software to other computers over any information network (expressly including the Internet or an internal network such as a LAN). 
+
+3. DESCRIPTION OF OTHER RIGHTS AND LIMITATIONS
+The license granted hereunder shall be subject to the following restrictions and limitations except as expressly permitted by applicable legislation:
+3.1 Limitation on Modification, Reverse Engineering, Decompilation and Disassembly.  You may not modify, reverse engineer, decompile or disassemble the Software in whole or in part except as expressly permitted by applicable legislation.
+3.2 Accessed Contents.   All contents accessed through the Software are the property of SONY or the applicable content owner and may be protected by applicable copyright law.  Except as specifically set forth herein, this license gives you no rights to such contents.
+3.3 Separation of Components.  The Software is licensed as a single product.  Its component parts may not be separated for use on more than one computer.
+3.4 Single Computer Use.    The Software may only be used on a single computer, on which the Software is installed.
+3.5 Copying.  Except as expressly provided in this EULA, you may not copy any or all portion of the Software.
+3.6 Rental.  You may not sell, rent or lease the Software to any third party.
+3.7 Transfer.  You may not transfer any of your rights under this EULA to any third party.
+3.8 Subject File.  Notwithstanding the provisions of Article 3.3 through 3.7 hereinabove to the contrary, SONY hereby authorizes you, on a non-exclusive basis, to copy a portion of the Software which is identified in the file named "REDIST.TXT" (the "Subject File") or interpreter of R-CODE and incorporate the same into the programs and/or data which may be created by you by using the Software.
+3.9 Termination.  Without prejudice to any other rights SONY may have, your rights under this EULA will terminate automatically if you fail to comply with the terms and conditions of this EULA.  In such event, you must destroy all copies of the Software and submit to SONY the proof of the destruction of all copies of the Software and all component parts thereof.  Articles 5 through 10 of this EULA shall survive such termination.
+
+4. RIGHT
+4.1 Rights on the Software.  All title to and copyrights on the Software (including but not limited to text incorporated into the Software) are owned and/or controlled by SONY and/or applicable content owner(s).  All rights not specifically granted under this EULA are reserved by SONY or such content owner(s).
+4.2 Rights to Your Works.  All programs and/or data which may be created by you by using the Software, all inventions and development which arise during the course of using the Software by you, and the rights which arise therefrom and/or are granted thereon (expressly including, without limitation, patents and copyrights) shall be your own property.  You hereby grants SONY a non-exclusive, fully paid-up and transferable right, with the right to grant sub-licenses, to use, copy, modify, display and create derivative works from your works and all right therein for any purpose throughout the world
+
+5. EXCLUSION OF WARRANTY ON THE SOFTWARE
+You expressly acknowledge and agree that use of the Software is at your sole risk.  THE SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND, AND SONY EXPRESSLY DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, NONINFRINGEMENT AND FITNESS FOR A PARTICULAR PURPOSE.  SONY DOES NOT WARRANT THAT THE FUNCTIONS CONTAINED IN THE SOFTWARE WILL MEET YOUR REQUIREMENTS, OR THAT THE OPERATION OF THE SOFTWARE WILL BE UNINTERRUPTED OR CORRECT.  FURTHERMORE, SONY DOES NOT WARRANT OR MAKE ANY REPRESENTATIONS REGARDING THE USE OR THE RESULTS OF THE USE OF THE SOFTWARE IN TERMS OF ITS CORRECTNESS, ACCURACY, RELIABILITY, OR OTHERWISE.  NO ORAL OR WRITTEN INFORMATION OR ADVICE GIVEN BY SONY OR A SONY AUTHORIZED REPRESENTATIVE SHALL CREATE A WARRANTY.  SHOULD THE SOFTWARE PROVE DEFECTIVE, YOU (AND NOT SONY OR A SONY AUTHORIZED REPRESENTATIVE) ASSUME THE ENTIRE COST OF ALL NECESSARY SERVICING, REPAIR OR CORRECTION.  SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION OF IMPLIED WARRANTIES, SO THE ABOVE EXCLUSION MAY NOT APPLY TO YOU.
+ 
+6. LIMITATION OF LIABILITY  
+SONY SHALL NOT BE LIABLE FOR ANY LOSS OR DAMAGE, EITHER DIRECT, INCIDENTAL, CONSEQUENTIAL OR OTHERWISE, FOR BREACH OF ANY EXPRESS OR IMPLIED WARRANTY, BREACH OF CONTRACT, NEGLIGENCE, STRICT LIABILITY OR ANY OTHER LEGAL THEORY RELATED TO THE SOFTWARE.  SUCH DAMAGES INCLUDE, BUT ARE NOT LIMITED TO, LOSS OF PROFITS, LOSS OF REVENUE, LOSS OF DATA (INCLUDING BUT NOT LIMITED TO DATA CREATED BY YOU BY USING THE SOFTWARE), LOSS OF USE OF THE PRODUCT OR ANY ASSOCIATED EQUIPMENT, DOWN TIME AND USER'S TIME, EVEN IF SONY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION OR LIMITATION OF CONSEQUENTIAL OR INCIDENTAL DAMAGES, SO THE ABOVE EXCLUSION OR LIMITATION MAY NOT APPLY TO YOU.
+
+7. DAMAGES ARISING OUT OF YOUR ACTIONS
+You will defend and hold SONY harmless from and against all liabilities, demands, damages, costs, expenses, or losses arising out of the use of the Software and/or breach of any of the provisions of this EULA by you.
+
+8. APPLICABLE LAW
+This EULA shall be construed in accordance with the laws of Japan.
+
+9. WAIVER OF TRIAL BY JURY
+YOU HEREBY WAIVE ALL RIGHTS AND/OR ENTITLEMENT TO TRIAL BY JURY IN CONNECTION WITH ANY DISPUTE THAT ARISES OUT OF OR RELATES IN ANY WAY TO THIS EULA.
+
+10.GENERAL
+Should any portion of this EULA be declared null and void by operation of law, or otherwise, the remainder of this EULA shall remain in full force and effect. This EULA shall be binding upon the parties' authorized successor and assignees.  Neither party's waiver of any breach or failure to enforce any of the provisions of this EULA at any time shall in any way affect, limit or waive such party's right thereafter to enforce and compel strict compliance with every other provision.  No modification of this EULA shall be effective unless in writing signed by both parties.  
+
+c 2001 Sony Corporation  All Rights Reserved.  	
+
+
+===============================
+Files that can be redistributed
+===============================
+
+Listed below are the files that can be redistributed according to Article 3, Clause 8 of the software license agreement.
+
+(In your PC, the files are in the \REDIST folder located where AIBO Master Studio was installed.)
+
+
+  OPEN-R
+    +--APP
+    |  VERSION
+    |  +--CONF
+    |  |      CNTVER.OIF
+    |  |      CONNECT.CFG
+    |  |      OBJECT.CFG
+    |  +--DATA
+    |  |  +--E
+    |  |  +--P
+    |  |      TR.CT
+    |  +--OBJS
+    |  |      HTTPD.BIN
+    |  |      NETCONF.BIN
+    |  |      RCLOCK.BIN
+    |  |      RCOMM.BIN
+    |  |      RMAIN.BIN
+    |  |      RREPLAY.BIN
+    |  |      SCOMM.BIN
+    |  |      TR.BIN
+    |  +--PC
+    |      +--AMS
+    |              ACTION.AMS
+    |              ACTION.CFG
+    |              JOINT.CFG
+    |              R-CODE.CFG
+    |              R-CODE.DIC
+    |              SENSOR.CFG
+    |              SYSTEM.CFG
+    +--MW
+    |  |  VERSION
+    |  +--CONF
+    |  |      AIR.ODB
+    |  |      AUDIO.CFG
+    |  |      CAMERA.INF
+    |  |      CM.DAT
+    |  |      CNTVER.OIF
+    |  |      CONNECT.CFG
+    |  |      DESIGN.CFG
+    |  |      DESIGNDB.CFG
+    |  |      ERS-210.MWC
+    |  |      GAIN.CFG
+    |  |      HMGPOS.CFG
+    |  |      IC.CFG
+    |  |      INFDB.OIF
+    |  |      ISM.DAT
+    |  |      LED.DAT
+    |  |      MIC.INF
+    |  |      MONET.CFG
+    |  |      MONTELLA.CFG
+    |  |      MP.DAT
+    |  |      MPACC.CFG
+    |  |      MPAGAIN.CFG
+    |  |      MPHGAIN.CFG
+    |  |      MPLGAIN.CFG
+    |  |      MPMGAIN.CFG
+    |  |      MPTGAIN.CFG
+    |  |      MVRES.OIF
+    |  |      MWCDB.OIF
+    |  |      OBJECT.CFG
+    |  |      OR.CFG
+    |  |      PPM.DAT
+    |  |      PRELUDE.DAT
+    |  |      SERVICE.CFG
+    |  |      SP.DAT
+    |  |      SPEAKER.INF
+    |  +--DATA
+    |  |  +--E
+    |  |  |      SYSAUDIO.ODA
+    |  |  |      SYSLED.ODA
+    |  |  |      SYSMTN.ODA
+    |  |  +--P
+    |  |         BOOT.WAV
+    |  +--OBJS
+    |          AIR.BIN
+    |          CM.BIN
+    |          HMG.BIN
+    |          ISM.BIN
+    |          LG.BIN
+    |          LP.BIN
+    |          MP.BIN
+    |          PPM.BIN
+    |          PRELUDE.BIN
+    |          RP.BIN
+    |          SP.BIN
+    +--SYSTEM
+        |  VERSION
+        +--CONF
+        |  |  CARDDRV.CFG
+        |  |  TIMBRE.DAT
+        |  |  VRAUCOMM.DAT
+        |  +--WLAN
+        |      +--HTML
+        |              BACK.GIF
+        |              BLANK.GIF
+        |              BLANK2.GIF
+        |              CONFIRM.HTM
+        |              HEADER.GIF
+        |              SETUP.HTM
+        |              STRING01.GIF
+        |              STRING02.GIF
+        |              STRING03.GIF
+        |              STRING04.GIF
+        |              STRING05.GIF
+        |              STRING06.GIF
+        |              STRING07.GIF
+        |              STRING08.GIF
+        |              STRING09.GIF
+        |              STRING10.GIF
+        |              STRING11.GIF
+        |              STRING12.GIF
+        |              STRING21.GIF
+        |              TAIL.GIF
+        |              TCPIP.GIF
+        |              WLAN.GIF
+        |              WLANDFLT.TXT
+        +--DATA
+        |  +--E
+        |  |      MSWATCH.DAT
+        |  +--P
+        |         IPE.IIB
+        |         SRTDSP01.ESP
+        +--OBJS
+                IPSTACK.BIN
+                WLANDRV.BIN
+                WLANENBL.BIN
+
+                

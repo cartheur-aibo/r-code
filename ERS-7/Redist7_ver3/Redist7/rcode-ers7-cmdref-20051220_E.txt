@@ -1,0 +1,1931 @@
+===========================================================================
+
+        R-CODE for ERS-7
+
+        Copyright (C) 2004 Sony Corporation
+        All Rights Reserved.
+
+===========================================================================
+
+[ Changes ]
+[ R-CODE Coding Conventions ]
+[ List of R-CODE Commands by Function ]
+[ Alphabetical List of R-CODE Commands ]
+
+[ Command Reference ]
+
+[ R-CODE Operator Quick Reference ]
+[ List of R-CODE System Variables ]
+        [Variables]
+        [Voice ID List]
+        [AiboSound ID List]
+        [AiboTone ID List]
+
+ [How to start R-CODE]
+ [WirelessLAN communication]
+ [LED, MIDI Table]
+
+[ Changes ]
+ 2005.2.16
+  * R-CODE numeric processing bug (compare and four basic arithmetic
+    operations) has been fixed. 32bit intergers are now treated correctly.
+  * RRLeg (right rear) sensor data can be read correctly.
+ 2005.12.06
+  * Support ERS-7M3
+  * Changed WAIT and Clock resolution from 32ms to 16ms 
+    (see line 519 & 1491)
+[ R-CODE Coding Conventions ]
+
+  1) A line may be up to 127 bytes long (total, including comments and a newline character).
+
+  2) R-CODE commands consist of words separated by colons (:).
+
+        Word1:Word2:Word3
+
+  3) Only alphanumeric Ascii characters and underscores (_) may be used in words.
+     NOTE: other symbols have special meanings.
+
+  4) Space and Tab characters at the heads of lines are ignored (for indenting)
+
+  5) Lines beginning with a colon (:) are considered to be label rows.
+
+        :Label
+
+  6) Lines whose first character is not an alphanumeric Ascii character or colon (:) are treated as comment lines, and ignored.
+
+  7) If a double slash (//) is contained in a line, everything thereafter in that line is treated as a comment, and ignored.
+
+        Word1:Word2:Word3  // comment
+
+  8) Since colons (:), spaces, tabs, and newline characters are treated as separators, they cannot be used in names and the like.
+     In order to include these characters in format strings and the like, wrap the entire string in double quotes ("").
+
+        PRINT:"x = %d":x
+
+  9) Words starting with the following characters are treated as numbers: + - 0 1 2 3 4 5 6 7 8 9
+     Numbers whose first two characters are 0x or 0X are treated as hexadecimal numbers.
+     Numbers whose first two characters are 0o or 0O are treated as octal numbers.
+     Numbers whose first two characters are 0b or 0B are treated as binary numbers.
+
+        SET:x:0x03FC
+        SET:y:0o0777
+        SET:z:0b00001111
+
+ 10) Words in ALL-CAPS are reserved for R-CODE system use.
+     Please do not use ALL-CAPS for user variable names, etc.
+
+        BAD -- SET:USER1:0 (could cause future conflicts with words reserved by the R-CODE system)
+        GOOD -- SET:user1:0 (use of all lowercase variable names recommended)
+        CAUTION -- SET:User1:0 (make sure capitalized names do not overlap with system variables)
+
+
+
+
+
+[ List of R-CODE Commands by Function ]
+
+Control
+
+  EDIT             Load program
+  END              Program load termination
+  RUN              Begin execution
+  EXIT             Terminate execution
+  HALT             Terminate and shutdown
+  INIT             Initialize
+  !                Break (force stop)
+
+Actions
+
+  PLAY             Play action
+  STOP             Normal stop
+  QUIT             Emergency stop
+  WAIT             Wait
+  SYNC             Synchronize
+  NONE             No operation
+
+Printing
+
+  PRINT            Print
+
+Control Structures
+
+  :                Label
+  GO               Jump
+  IF               Conditional test
+  SWITCH           Multiway-branching (Context value setting)
+  CSET             Multiway-branching (Context value setting)
+  CASE             Multiway-branching (Conditional execution)
+  FOR              FOR loop
+  NEXT             FOR loop termination
+  WHILE            WHILE loop
+  WEND             WHILE loop termination
+  REPEAT           REPEAT loop
+  UNTIL            REPEAT loop termination
+  DO               DO loop
+  LOOP             DO loop termination
+  BREAK            Break out of loop
+  CALL             Call subroutine
+  ARG              Retrieve subroutine argument
+  RETURN           Return from subroutine
+  RET              Return from subroutine (context version)
+  ONCALL           Register interrupt routine
+  RESUME           Return from interrupt routine
+
+Variables
+
+  GLOBAL           Global variable declaration
+  LOCAL            Local variable declaration
+  LET              Assign (simple assignment)
+  SET              Assign (with special functions)
+  GET              Refer (for debugging)
+  CLR              Clear sensor variable
+
+  VSAVE            Save variable value
+  VLOAD            Load variable value
+  VDUMP            Display variable value
+
+Operators
+
+  ADD              Add
+  SUB              Subtract
+  MUL              Multiply
+  DIV              Divide
+  MOD              Remainder
+  AND              Logical product
+  IOR              Inclusive OR
+  XOR              Exclusive OR
+  NOT              Negation
+  LAND             Logical product (Boolean operator)
+  LIOR             Inclusive OR (Boolean operator)
+  LNOT             Negation (Boolean operator)
+  EQ               Equal
+  NE               Not equal to
+  LT               Less than
+  LE               Less than or equal to
+  GT               Greater than
+  GE               Greater than or equal to
+  RND              Random number
+
+Stack Operations
+
+  PUSH             Add element to stack
+  POP              Remove element from stack
+  DUP              Copy stack top
+  JT               Jump if stack top is true
+  JF               Jump if stack top is false
+
+
+
+
+
+[ Alphabetical List of R-CODE Commands ]
+
+  !                Break (force stop)
+  :                Label
+  ADD              Add
+  AND              Logical product
+  ARG              Retrieve subroutine argument
+  BREAK            Break out of loop
+  CALL             Call subroutine
+  CASE             Multiway-branching (Conditional execution)
+  CLR              Clear sensor variable
+  CSET             Multiway-branching (Context value setting)
+  DIV              Divide
+  DO               DO loop
+  DUP              Copy stack top
+  EDIT             Load program
+  END              Program load end point
+  EQ               Equal
+  EXIT             Terminate execution
+  FOR              FOR loop
+  GE               Greater than or equal to
+  GET              Refer (for debugging)
+  GLOBAL           Global variable declaration
+  GO               Jump
+  GT               Greater than
+  HALT             Terminate and shutdown
+  IF               Conditional test
+  INIT             Initialize
+  IOR              Logical sum
+  JF               Jump if stack top is false
+  JT               Jump if stack top is true
+  LAND             Logical product (Boolean operator)
+  LE               Less than or equal to
+  LET              Assign (simple assignment)
+  LIOR             Inclusive OR (Boolean operator)
+  LNOT             Negation (Boolean operator)
+  LOCAL            Local variable declaration
+  LOOP             DO loop termination
+  LT               Less than
+  MOD              Remainder
+  MUL              Multiply
+  NE               Not equal to
+  NEXT             FOR loop end point
+  NONE             No operation
+  NOT              Negation
+  ONCALL           Register interrupt routine
+  PLAY             Play action
+  POP              Remove element from stack
+  PRINT            Print
+  PUSH             Add element to stack
+  QUIT             Emergency stop
+  REPEAT           REPEAT loop
+  RESUME           Return from interrupt routine
+  RET              Return from subroutine (context version)
+  RETURN           Return from subroutine
+  RND              Random number
+  RUN              Begin execution
+  SET              Assign (with special functions)
+  STOP             Normal stop
+  SUB              Subtract
+  SWITCH           Multiway-branching (Context value setting)
+  SYNC             Synchronize
+  UNTIL            REPEAT loop termination
+  VDUMP            Display variable value
+  VLOAD            Load variable value
+  VSAVE            Save variable value
+  WAIT             Wait
+  WEND             WHILE loop end point
+  WHILE            WHILE loop
+  XOR              Exclusive OR
+
+
+
+---------------------------------------------------------------------------
+
+Name
+        EDIT - Load program (Transfer program from PC to AIBO) 
+
+Format
+        EDIT
+        < program >
+        END
+
+Arguments
+        None
+
+Description
+        Loads R-CODE program from EDIT to END into memory.
+        Any program already existing in memory is deleted. 
+
+Example
+        EDIT
+        FOR:i:1:10
+          PLAY:ACTION:xxx
+          WAIT
+        NEXT
+        EXIT
+        END
+
+---------------------------------------------------------------------------
+
+Name
+        END - Program load termination
+
+Format
+        EDIT
+        < program >
+        END
+
+Arguments
+        None
+
+Description
+        See description for EDIT.
+
+Example
+        EDIT
+        FOR:i:1:10
+          PLAY:ACTION:xxx
+          WAIT
+        NEXT
+        EXIT
+        END
+
+---------------------------------------------------------------------------
+
+Name
+        RUN - Execute program
+
+Format
+        RUN
+
+Arguments
+        None
+
+Description
+        Begins execution of program currently in memory.
+
+Example
+        RUN
+
+---------------------------------------------------------------------------
+
+Name
+        EXIT - Terminate program
+
+Format
+        EXIT
+
+Arguments
+        None
+
+Description
+        Halts program execution.
+
+Example
+        EDIT
+        FOR:i:1:10
+          PLAY:ACTION:xxx
+          WAIT
+        NEXT
+        EXIT
+        END
+
+---------------------------------------------------------------------------
+
+Name
+        HALT - Halt program / shut down AIBO
+
+Format
+        HALT
+
+Arguments
+        None
+
+Description
+        Halt currently running program, and shut down AIBO.
+        Shutdown takes several seconds.
+
+Example
+        EDIT
+        FOR:i:1:10
+          PLAY:ACTION:xxx
+          WAIT
+        NEXT
+        HALT
+        END
+
+---------------------------------------------------------------------------
+
+Name
+        INIT - initialize R-CODE
+
+Format
+        INIT:<init_level>
+
+Arguments
+        <init_level>        See description
+
+Description
+        INIT:0  Initialize whole R-CODE system.
+                This is performed automatically at startup.
+                This is for system use only. Do not use this command in your R-code.
+
+        INIT:1  Enter debug mode.
+                For R-CODE Debugger (currently being developed separately)
+                Do not use this command in your R-code.
+
+        INIT:2  Initialize dictionary and variable table to startup values.
+        INIT:3  Initialize at the time of WLAN connection.
+                This is performed automatically upon WLAN connection.
+                Optional second argument specifies the machine ID (AiboId). 
+                Do not use this command in your R-code.
+
+        INIT:4  WLAN Disconnect notification (Rcomm->RMain)
+        INIT:9  Shutdown & Reboot
+
+Example
+        INIT    (same as INIT:0)
+        INIT:2
+
+---------------------------------------------------------------------------
+
+Name
+!                Break (force stop)
+
+Format
+        !        Conduct emergency stop, and halt program execution.
+        !!       Conduct normal stop, and halt program execution.
+        !!!      Conduct emergency stop, halt program execution, and initialize environment.
+
+Arguments
+        None
+
+Description
+        Forces program execution to halt.
+        For control from AMS and other PC applications.
+
+Example
+        !
+
+---------------------------------------------------------------------------
+
+Name
+        PLAY -- Play action
+
+Format
+        General format
+
+        PLAY:ACTION:<action>[:<arg1>:<arg2>:<arg3>]
+
+        PLAY:MWCID:<mwcid>[:<arg1>:<arg2>:<arg3>]
+
+Arguments
+
+        <action> -- Action name
+
+        <arg1 - 3> -- Optional arguments (vary depending on Action)
+                      Constant value or Variable name
+
+        <mwcid>         MWCommandID
+
+Description
+        Plays action specified by <action>.
+        The action names that can be specified by <action> are defined in ACTION.AMS(/OPEN-R/APP/PC/AMS/ACTION.AMS).
+
+        Plays MWCommand specified by <mwcid>
+        MWCommand can be called if the <mwcid> is known.
+
+        A check is made of the current posture and the starting posture of the action to be played.
+        If they are not the same posture, AIBO automatically transitions to the starting posture.
+        The <action> or <mwcid> will be played once AIBO is in the starting posture.
+
+Argument Pattern
+        <horizontal angle>:<distance> // WALK, KICK, TOUCH, etc.
+        <horizontal angle> // TURN, etc.
+        <horizontal angle>:<vertical angle> // MOVE_HEAD, etc.
+        <TARGET> // SEARCH, etc.
+
+        Angle unit is degrees
+        Distance unit is millimeters
+
+        Currently, only PINK_BALL can be specified as <TARGET>.
+
+Example
+        PLAY:ACTION:STAND
+
+---------------------------------------------------------------------------
+
+Name
+        STOP - Normal stop
+
+Format
+        STOP
+
+Arguments
+        None
+
+Description
+        Normal stop of action.
+        Discards all actions remaining in the queue.
+        If an action is currently being played, stops after that action is completed.
+
+Example
+        STOP
+
+---------------------------------------------------------------------------
+
+Name
+        QUIT -- Emergency stop
+
+Format
+        QUIT
+
+Arguments
+        None
+
+Description
+        Emergency stop of action.
+        Discards all actions remaining in the queue.
+        Immediately halts operation, including any action currently being performed.
+
+        Note: If QUIT is used, the posture is reset to an undefined state.
+
+Example
+        QUIT
+
+---------------------------------------------------------------------------
+
+Name
+        WAIT - Wait until end of action (synchronize)
+
+Format
+        WAIT         Wait until the end of the preceding action.
+
+        WAIT:<ms>    Wait specified amount of time.
+
+Arguments
+        <ms>         milliseconds  [1 - 30000]   Note: resolution is 16 ms
+
+
+Description
+        Waits until the end of the preceding action that is being executed.
+        Temporarily halts program execution.
+
+        WAIT has no effect in a state where there is nothing to wait for.
+
+        If <ms> is specified, processing is suspended for the specified amount of time.
+
+Example
+        WAIT
+        WAIT:1000
+
+---------------------------------------------------------------------------
+
+Name
+        SYNC - External synchronization
+
+Format
+        SYNC
+
+Arguments
+        None
+
+Description
+        Executing SYNC during program execution pauses the program, and goes into standby for input.
+        Processing restarts when the "SYNC" command string is sent.
+
+Example
+        SYNC
+
+---------------------------------------------------------------------------
+
+Name
+        NONE        No operation
+
+Format
+        NONE
+
+Arguments
+        None
+
+Description
+        A "no-operation" statement.
+        Processing immediately continues on the next line.
+
+Example
+        NONE
+
+---------------------------------------------------------------------------
+
+Name
+        PRINT - Print (for online debugging)
+
+Format
+        PRINT:<format>[:<var1>:<var2>:<var3>:<var4>:<var5>]
+
+Arguments
+        <format>        Format string
+
+                        %d Decimal notation
+                        %x Hexadecimal notation
+
+        <var1> - <var5> Variable name.
+
+Description
+        Display messages using method similar to the C printf() command. 
+
+        If <format> includes spaces or tabs, enclose the entire <format> string in double quotes ("").
+
+Example
+        PRINT:"x=%d y=%d":x:y
+
+---------------------------------------------------------------------------
+
+Name
+        :<label> - Label
+
+Format
+        :<label>
+
+Arguments
+        <label> arbitrary string
+
+Description
+        Defines a label used as destination for GO and IF statements.
+        Also used to name subroutines called with CALL command.
+
+        Labels cannot exist independently.
+        Execution flow continues on the line immediately following the label.
+        Labels have global scope (they range over the entire program).
+
+Example
+        GO:Skip
+        PRINT:"Never reach this line."
+        :Skip
+        PRINT:"Skipped!"
+
+---------------------------------------------------------------------------
+
+Name
+        GO - Jump
+
+Format
+        GO:<label>
+
+Arguments
+        <label>         Jump destination label
+
+Description
+        Go to line with <label> attached.
+
+        Go statements cannot range outside of subroutine or scope.
+        Doing so will cause a stack overflow.
+        There is no problem with using a GO statement to break out of a loop structure.
+
+        Try to keep the use of GO statements to a minimum.
+
+Example
+        GO:Skip
+        PRINT:"Never reach this line."
+        :Skip
+        PRINT:"Skipped!"
+
+---------------------------------------------------------------------------
+
+Name
+        IF - Conditional test
+
+Format
+        Format 1
+        IF:<v1>:<op>:<v2>:THEN
+        -- THEN Block --
+        ELSE
+        -- ELSE Block --
+        ENDIF
+
+        Format 2
+        IF:<v1>:<op>:<v2>:CALL:<label>[:<argc>]
+
+        Format 3
+        IF:<v1>:<op>:<v2>:BREAK
+
+        Format 4
+        IF:<v1>:<op>:<v2>:<then>[:<else>]
+
+Arguments
+        <v1>                Operand 1
+        <op>                Relational operator
+        <v2>                Operand 2
+
+
+        List of relational operators
+
+        =         Equal
+        ==        Equal
+        <>        Not equal to
+        !=        Not equal to
+        <         Less than
+        <=        Less than or equal to
+        >         Greater than
+        >=        Greater than or equal to
+        &         Bitwise AND (logical multiplication)
+        |         Bitwise OR (logical addition)
+        ^         Bitwise exclusive OR
+        &&        AND/logical multiplication (operands treated as Boolean values: 0 treated as FALSE / other than 0 treated as TRUE)
+        ||        OR/logical addition (operands treated as Boolean values: 0 treated as FALSE / other than 0 treated as TRUE)
+
+
+        <label>   Subroutine label
+        <argc>    Number of subroutine arguments
+
+        <then>    Jump destination if condition satisfied
+        <else>    Jump destination if condition not satisfied
+
+Description
+        Evaluates expression of the form <v1> <op> <v2> and performs processing
+        according to the results.
+
+        In case of format 1:
+        If expression is true, execute THEN Block.
+        If expression is false, execute ELSE Block.
+        ELSE -- ELSE Block -- can be omitted
+        Always be sure to terminate with ENDIF.
+
+        In case of format 2:
+        If expression is true, CALL function <label>.
+        See the description for CALL for arguments after <label>.
+
+        In case of format 3:
+        If expression is true, execute BREAK.
+        Used to break out of loops.
+        For details, see the description for BREAK.
+
+        In case of format 4:
+        If expression is true, GO to <then> label.
+        If expression is false, GO to <else> label.
+        Please see notes for GO.
+        Avoid this format as much as possible.
+
+Example
+        IF:x:=:0:THEN
+          PRINT:"x is 0"
+        ELSE
+          PRINT:"x is not 0"
+        ENDIF
+
+---------------------------------------------------------------------------
+
+Name
+        SWITCH - Multi-branching (Context value setting)
+
+Format
+        SWITCH:<v>
+
+Arguments
+        <v>       Variable name or constant
+
+Description
+        Set context value to <v>
+
+        Combine with CASE statements to create multi-branching conditions.
+
+Example
+        SWITCH:x
+        CASE:1:PRINT:"x = 1"
+        CASE:2:PRINT:"x = 2"
+        CASE:2:PRINT:"(two)"
+        CASE:3:PRINT:"x = 3"
+        CASE:ELSE:PRINT:"x is not 1"
+        CASE:ELSE:PRINT:"x is not 2"
+        CASE:ELSE:PRINT:"x is not 3"
+
+---------------------------------------------------------------------------
+
+Name
+        CSET - Multi-branching (Context value setting)
+
+Format
+        CSET:<v1>:<op>:<v2>:<v3>
+
+Arguments
+        <v1>      Operand 1
+        <op>      Comparison operator
+        <v2>      Operand 2
+        <v3>      Variable name or constant
+
+Description
+        Evaluates expression of the form <v1> <op> <v2> and if true,
+        set context value to <v3>.
+
+        CSET is a 'skip' command.
+        If several contiguous CSETs appear, all CSETs after the first one that is evaluated as true are ignored.
+
+        Combine with CASE statements to create multi-branching conditions.
+
+Example
+        CSET:x:<:10:1
+        CSET:x:<:20:2
+        CSET:x:<:30:3
+        CSET:x:<:40:4
+        CSET:x:<:50:5
+        CASE:1:PRINT:"x < 10"
+        CASE:2:PRINT:"x < 20"
+        CASE:3:PRINT:"x < 30"
+        CASE:4:PRINT:"x < 40"
+        CASE:5:PRINT:"x < 50"
+
+---------------------------------------------------------------------------
+
+Name
+        CASE -- Multi-branching (Conditional execution)
+
+Format
+        CASE:<const>:<command>
+
+        CASE:ELSE:<command>
+
+Arguments
+        <const> Context value (must be constant)
+
+        <command> Arbitrary R-CODE command (excluding CASE)
+
+Description
+        If the context value is equal to <const>, execute <command>.
+
+        Also possible to add CASE:ELSE at the end of a series of CASE statements.
+        If the context is not equal to any of the CASE constants, the ELSE <command>
+        is executed.
+
+Example
+        SWITCH:x
+        CASE:1:PRINT:"x = 1"
+        CASE:2:PRINT:"x = 2"
+        CASE:2:PRINT:"(two)"
+        CASE:3:PRINT:"x = 3"
+        CASE:ELSE:PRINT:"x is not 1"
+        CASE:ELSE:PRINT:"x is not 2"
+        CASE:ELSE:PRINT:"x is not 3"
+
+---------------------------------------------------------------------------
+
+Name
+        FOR...NEXT - Loop structure
+
+Format
+        FOR:<var>:<from>:<to>[:<step>]
+        -- commands --
+        NEXT
+
+Arguments
+        <var>         Loop variable
+        <from>        Start value
+        <to>          End value
+        <step>        Increment size
+
+Description
+        Repeats -- commands -- until NEXT while incrementing/decrementing
+        variable <var> from <from> to <to>, in steps of <step>.
+
+Example
+        FOR:i:1:10
+          PRINT:"i=%d":i
+        NEXT
+
+        FOR:i:10:1:-1
+          PRINT:"i=%d":i
+        NEXT
+
+---------------------------------------------------------------------------
+
+Name
+        WHILE...WEND - Loop Structure
+
+Format
+        WHILE:<v1>:<op>:<v2>
+        -- commands --
+        WEND
+
+Arguments
+        <v1>          Operand 1
+        <op>          Comparison operator
+        <v2>          Operand 2
+
+Description
+        Evaluates expression of the form <v1> <op> <v2> and while true,
+        repeatedly executes the -- commands -- up to the WEND statement.
+
+Example
+        SET:i:0
+        WHILE:i:<:10
+          PRINT:"i=%d":i
+        WEND
+
+---------------------------------------------------------------------------
+
+Name
+        REPEAT...UNTIL - Loop structure
+
+Format
+        REPEAT
+        -- commands --
+        UNTIL:<v1>:<op>:<v2>
+
+Arguments
+        <v1>          Operand 1
+        <op>          Comparison operator
+        <v2>          Operand 2
+
+Description
+        Executes the -- commands -- up to the UNTIL statement, until the
+        conditional expression <v1> <op> <v2> is true.
+
+        The -- command -- block is always executed at least once.
+
+Example
+        SET:i:0
+        REPEAT
+          PRINT:"i=%d":i
+        UNTIL:i:>=:10
+
+---------------------------------------------------------------------------
+
+Name
+        DO...LOOP - Loop structure
+
+Format
+        DO[:WHILE|UNTIL:<v1>:<op>:<v2>]
+        -- commands --
+        LOOP[:WHILE|UNTIL:<v1>:<op>:<v2>]
+
+Arguments
+        <v1>          Operand 1
+        <op>          Comparison operator
+        <v2>          Operand 2
+
+Description
+        Repeatedly executes -- command -- block between DO and LOOP.
+
+        It is possible to specify a conditional expression for DO and LOOP. 
+        Breaks out of the loop when either of the conditions is satisfied. 
+
+        If WHILE is specified, continues to execute the loop while the conditional expression is true.
+        If UNTIL is specified, continues to execute the loop until the conditional expression is true.
+
+        If no condition is specified for either DO or LOOP, becomes an endless loop.
+
+Example
+
+---------------------------------------------------------------------------
+
+Name
+        BREAK - Break out of loop structure
+Format
+        BREAK[:<break_level>]
+
+Arguments
+        <break_level>   Specifies level of nesting of loop structure to break out of.
+        Must be a constant value.
+        Variables cannot be specified.
+        Default value is 1.
+
+Description
+        Breaks out of the loop currently being executed.
+        Can be used in the same way for all loop structures.
+
+Example
+        FOR:i:1:100
+          IF:i:>:10:BREAK
+          PRINT:"i=%d":i
+        NEXT
+
+---------------------------------------------------------------------------
+
+Name
+        CALL - Call subroutine
+
+Format
+        CALL:<label>[:<argc>]
+
+Arguments
+        <label>   Subroutine label to be called
+        <argc>    Number of previously PUSHed arguments
+
+Description
+        Calls subroutine <label>.
+        Possible to pass an arbitrary number of arguments by placing them beforehand 
+        on the stack using the PUSH commands.
+        <argc> specifies the number of variables PUSHed onto the stack.
+
+        On calling a subroutine, the current context value is PUSHed onto the stack. 
+        It is restored when RETURN brings the program back to its initial location.
+
+Example
+        CALL:sub1
+
+        PUSH:10     // argument 1
+        PUSH:200    // argument 2
+        PUSH:3000   // argument 3
+        CALL:sub2:3
+
+---------------------------------------------------------------------------
+
+Name
+        ARG - Retrieve subroutine argument
+
+Format
+        ARG:<var>
+
+Arguments
+        <var>       Variable name
+
+Description
+        Extracts value of subroutine argument into variable <var>.
+        The same number of arguments must be retrieved as were PUSHed.
+        The order in which arguments are retrieved is first-in-first-out.
+        Note that the order is not first-in-last-out, like a normal stack.
+
+Example
+        Calling source:
+        PUSH:10
+        PUSH:200
+        PUSH:3000
+        CALL:sub
+        ...
+
+        Subroutine:
+        :sub
+        ARG:arg1  // arg1 <- 10
+        ARG:arg2  // arg2 <- 200
+        ARG:arg3  // arg3 <- 3000
+        ...   // arg1 - 3 are provided for use as local variables.
+        // There is no need for separate LOCAL declarations
+
+---------------------------------------------------------------------------
+
+Name
+        RETURN - Return from subroutine
+
+Format
+        RETURN[:<return_value>]
+
+Arguments
+        <return_value>  Return value
+
+Description
+        Returns from subroutine.
+        <return_value> can be specified.
+        The return value is retrieved by the calling source by using POP.
+
+Example
+        Calling source:
+        CALL:sub
+        POP:rc // Return value of 123 retrieved into variable rc.
+        ... // Mandatory if calling a subroutine that has a return value.
+
+        Subroutine side:
+        :sub
+                ...
+        RETURN:123
+
+---------------------------------------------------------------------------
+
+Name
+        RET - Return from subroutine (context value switch version)
+
+Format
+        RET:<context>
+
+Arguments
+        <context> Context value
+
+Description
+        Returns from subroutine.
+        After returning, the context value is set to <context>.
+        If the <context> value is 0, restores the context value when the subroutine was called.
+
+Example
+        Calling source:
+        CALL:sub
+        CASE:1:PRINT:"case 1..."
+        CASE:2:PRINT:"case 2..."
+        CASE:3:PRINT:"case 3..."
+        ...
+
+        Subroutine:
+        :sub
+        ...
+        RET:1
+        ...
+        RET:2
+        ...
+        RET:3
+
+---------------------------------------------------------------------------
+
+Name
+        ONCALL - Register/cancel interrupt processing routine
+
+Format
+        ONCALL:<v1>:<op>:<v2>:<label>[:<resume_type>:<resume_label>]
+
+        ONCALL:<-n>
+
+Arguments
+        <v1>                Operand 1
+        <op>                Comparison operator
+        <v2>                Operand 2
+
+        <label>             Interrupt processing routing label
+
+        <resume_type> Return format
+        <resume_label> Jump destination label after return
+
+        <-n> Number of routines to be registered/deleted.
+
+Description
+        Register the interrupt routine <label> so that it is CALLed when the condition of <v1> <op> <v2> is met.
+        Conditional specification methods are the same as IF.
+
+        The return from the interrupt routine is carried out as follows:
+        <resume_type>
+        0  Return to statement that generated the interrupt.
+        1  After returning to the statement that generated the interrupt, Go to <resume_label>.
+        2  Return to location of ONCALL statement
+        3  After returning to the location of the ONCALL statement, Go to <resume_label>.
+        4  Return to beginning of program (entire stack is cleared).
+        5  After returning to beginning of program, Go to <resume_label>.
+
+        In 2 - 5, above, All ONCALL registrations after the corresponding ONCALL are deleted.
+        In the case of 3 and 5, however, ONCALL commands registered at the same level as the return position are preserved.
+
+        Conditional evaluation is conducted for each statement (line of R-CODE).
+
+        Nested interrupts are prohibited (ignored).
+
+        ONCALL is affected by the subroutine's nesting.
+        An ONCALL registered in a subroutine becomes invalid when execution leaves that subroutine.
+
+
+        If <-n> is specified, cancels the last n ONCALLs that have been registered.
+        <-n> must be a negative number
+
+Example
+        ONCALL:RFLeg_ON:=:1:9000
+
+---------------------------------------------------------------------------
+
+Name
+        RESUME - Return from interrupt routine
+
+Format
+        RESUME
+
+Arguments
+        None
+
+Description
+        Returns from interrupt routine.
+        Equivalent to a RETURN for a CALL.
+        RETURN may not be used to return from an interrupt routine.
+        The return position depends on the <resume_type> of the ONCALL.
+
+Example
+        RESUME
+
+---------------------------------------------------------------------------
+
+Name
+        GLOBAL - Global variable declaration
+
+Format
+        GLOBAL:<var>[:<init_value>]
+
+Arguments
+        <var>         Variable name
+        <init_value>  Initial value
+
+Description
+        Provides global variable <var>.
+        If <init_value> is specified, the variable is initialized to this value.
+
+        If a variable name not declared as either a GLOBAL or LOCAL variable is used,
+        R-CODE system will automatically generate a global variable with that name.
+
+Example
+        GLOBAL:x:0
+
+---------------------------------------------------------------------------
+
+Name
+        LOCAL - Local variable declaration
+
+Format
+        LOCAL:<var>[:<init_value>]
+
+Arguments
+        <var>                Variable name
+        <init_value>         Initial value
+
+Description
+        Provides local variable <var>.
+        If <init_value> is specified, the variable is initialized to this value.
+
+        Local variables are prepared on the stack.
+        The space for a local variable is freed when execution leaves its subroutine or scope.
+
+Example
+        LOCAL:y:0
+
+---------------------------------------------------------------------------
+
+Name
+        LET - Variable assignment
+Format
+        LET:<var>:<value>
+
+Arguments
+        <var>          Variable name
+        <value>        Value (variable name or constant)
+
+Description
+        Assigns value to the variable.
+        Special functions like SET do not function.
+
+Example
+        LET:x:1
+
+---------------------------------------------------------------------------
+
+Name
+        SET - Variable assignment
+
+Format
+        SET:<var>:<value>
+
+Arguments
+        <var>          Variable name
+        <value>        Value (variable name or constant)
+
+Description
+        Assigns value to the variable.
+        Special functions work with some variables.
+
+        Power          Sets power on and off.
+                        ** 2001/03/09 ***
+                        If "SET:Power:1" is used while AIBO has gone limp after detecting a pinch,
+                         the gain returns. 
+                        In order to ensure safety, the Power variable is no longer used to turn the
+                         power on and off.
+                        Since the variable itself remains, there is no need to change your
+                        programs.
+
+        Head_ON         It is necessary to use SET to return these values to 0 after they
+        Head_LONG       have been set by sensors, since they will stay that way otherwise.
+        BackF_ON        
+        BackM_ON        
+        BackR_ON        
+        BackFR_LONG     
+        BackF_Jaw_LONG  
+        Back_Pat        
+        BackR_Hit       
+        Jaw_ON          
+        RFLeg_ON        
+        RFLeg_OFF       
+        LFLeg_ON        
+        LFLeg_OFF       
+        RRLeg_ON        
+        RRLeg_OFF       
+        LRLeg_ON        
+        LRLeg_OFF       
+
+Example
+        SET:Power:1
+
+---------------------------------------------------------------------------
+
+Name
+        GET - See variable values
+
+Format
+        GET:<var>
+
+Arguments
+        <var>                Variable name
+
+Description
+        Displays the value of variable <var> on the console.
+        For debugging purpose.
+
+Example
+        GET:x
+
+---------------------------------------------------------------------------
+
+Name
+        CLR - Clear sensor variable
+
+Format
+        CLR:SENSORS
+
+Arguments
+        None
+
+Description
+        Sets to 0 the value of those sensor variables with a format that stores the last value.
+
+Example
+        CLR:SENSORS
+
+---------------------------------------------------------------------------
+
+Name
+        VSAVE - Save variable value
+
+Format
+        VSAVE:<var>
+
+Arguments
+        <var>                Variable name
+
+Description
+        Saves a variable value in a file on the Memory Stick.
+        Stored in the file:
+
+        /OPEN-R/APP/PC/AMS/<variable name>.SAV
+
+        CAUTION!
+        The file system limits the length of variable names that can be
+        saved to a maximum of 8 characters.
+
+Example
+        VSAVE:x
+
+---------------------------------------------------------------------------
+
+Name
+        VLOAD - Load variable value
+
+Format
+        VLOAD:<var>
+
+Arguments
+        <var>                Variable name
+
+Description
+        Reads a variable value from a file on the Memory Stick.
+        Read from the file:
+
+        /OPEN-R/APP/PC/AMS/<variable name>.SAV
+
+        CAUTION!
+        The file system limits the length of variable names that can be
+        saved to a maximum of 8 characters.
+
+Example
+        VLOAD:x
+
+---------------------------------------------------------------------------
+
+Name
+VDUMP                Display variable value
+
+Format
+        VDUMP:<var>
+
+Arguments
+        <var>                Variable name
+
+Description
+        Outputs variable value to the console in the following format:
+
+            <variable name> = <variable value>
+
+        This function is used for debugging when connected via WLAN.
+
+Example
+        VDUMP:x
+
+---------------------------------------------------------------------------
+
+
+
+
+        [ R-CODE Operator Quick Reference ]
+
+
+
+  Operators
+
+        Perform arithmetic operations, storing results in <var>.
+
+        <var>                Variable name
+        <value>              Value (variable name or constant)
+
+        ADD:<var>:<value>        <var> <- <var> + <value> Addition
+        SUB:<var>:<value>        <var> <- <var> - <value> Subtraction
+        MUL:<var>:<value>        <var> <- <var> * <value> Multiplication
+        DIV:<var>:<value>        <var> <- <var> / <value> Division
+        MOD:<var>:<value>        <var> <- <var> % <value> Remainder
+
+        AND:<var>:<value>        <var> <- <var> & <value> Bitwise AND
+        IOR:<var>:<value>        <var> <- <var> | <value> Bitwise OR
+        XOR:<var>:<value>        <var> <- <var> ^ <value> Bitwise Exclusive OR
+        NOT:<var>:<value>        <var> <- ~ <value> Bitwise Logical negation
+
+        LAND:<var>:<value>       <var> <- <var> AND <value> Logical AND
+        LIOR:<var>:<value>       <var> <- <var> OR  <value> Logical OR
+        LNOT:<var>:<value>       <var> <- NOT <value> Logical Negation
+
+        RND:<var>:<from>:<to>        <var> <- Random Number in Range <from> - <to>
+
+        The random number seed is specified by SET:Seed:<seed>.
+
+        In addition to the above operations, are provided the stack operations listed below.
+        POPs operand off stack, and PUSHes back the result.
+
+        ADD                <push> <- <pop2> + <pop1>      Addition
+        SUB                <push> <- <pop2> - <pop1>      Subtraction
+        MUL                <push> <- <pop2> * <pop1>      Multiplication
+        DIV                <push> <- <pop2> / <pop1>      Division
+        MOD                <push> <- <pop2> % <pop1>      Remainder
+
+        AND                <push> <- <pop2> & <pop1>      Bitwise AND
+        IOR                <push> <- <pop2> | <pop1>      Bitwise OR
+        XOR                <push> <- <pop2> ^ <pop1>      Bitwise exclusive OR
+        NOT                <push> <-        ~ <pop1>      Bitwise logical negation
+
+        LAND               <push> <- <pop2> AND <pop1>    Logical AND
+        LIOR               <push> <- <pop2> OR  <pop1>    Logical OR
+        LNOT               <push> <-        NOT <pop1>    Logical negation
+
+        EQ                 <push> <- <pop2> == <pop1>     Equal
+        NE                 <push> <- <pop2> <> <pop1>     Not equal
+        LT                 <push> <- <pop2> <  <pop1>     Less than
+        LE                 <push> <- <pop2> <= <pop1>     Less than or equal to
+        GT                 <push> <- <pop2> >  <pop1>     Greater than
+        GE                 <push> <- <pop2> >= <pop1>     Greater than or equal to
+
+        RND:<from>:<to>    <push> <- Random number in range <from> - <to>.
+        RND:<to>           <push> <- Random number in range of 0 - <to>.
+
+        Note:
+        Elements are POPed from the stack in the order of <pop1> and <pop2>.
+          PUSH:x
+          PUSH:y
+          SUB
+          POP:z
+        ...In this case, the value for z becomes x - y (not y - x).
+
+  Stack
+
+        PUSH:<var>      Variable value or constant is PUSHed onto the stack.
+
+        POP[:<var>]     Pop up a value from the stack into a variable.
+                        If <var> is not specified, the retrieved value is discarded.
+
+        DUP               Copy the stack's top element, and PUSH it onto the stack.
+
+        JT:<label>        POP the stack, and if the value is true, jump to <label>
+
+        JF:<label>        POP the stack, and if the value is false, jump to <label>
+
+
+        Note: Stack operations cannot cross subroutine or scope boundaries.
+
+
+
+
+
+        [ List of R-CODE System Variables ]
+
+
+   Note: System variables reserved by R-CODE are model-dependent.
+
+
+   [Variables]
+
+        AiboId           AIBO ID (0-255)
+                          0 when not connected via WLAN
+                          When connected via WLAN, least significant byte of IP address
+        AiboType         Model
+                          7  ERS-7
+
+        Year       Year (2000 or later)
+        Month      Month (1-12)
+        Day        Date (1-31)
+        Hour       Hour (0-23)
+        Min        Minute (0-59)
+        Sec        Second (0-59)    *resolution 2 seconds
+        Dow        Day of week (Sun(0), Mon(1), ..., Sat(6))
+
+        Seed       Random number seed (default is 1)
+
+        Power      Power (0/1):
+                      0 OFF
+                      1 ON
+                      Has no meaning for versions 1.1 and later.
+                      For details, see the description for the SET command.
+
+        Status     Status:
+                      0 Normal startup
+                      1 Recovery
+                      If AIBO recovers from falling, the program is started again from the beginning.
+                      At this time, the value is set to 1.
+
+        Context    Context value
+
+        Wait       Number of actions being waited for completion
+
+        Clock      Clock (incremented by 1 every 16 ms)
+
+
+        Brightness       Ambient brightness (0-255)
+        Face             Face was detected (0/1)
+
+        Pink_Ball        Pink ball (0/1)                                *
+        Pink_Ball_H      Pink ball horizontal angle [degrees]
+        Pink_Ball_V      Pink ball vertical angle [degrees]
+        Pink_Ball_D      Distance to pink ball [mm]
+                      The origin point of the position of Pink ball
+                      is a position of Image sensor.
+
+        AIBONE          AIBONE (0/1)                      *
+        AIBONE_H        AIBONE horizontal angle [degrees]
+        AIBONE_V        AIBONE vertical angle [degrees]
+        AIBONE_D        Distance to AIBONE [mm]
+
+
+        AU_Voice        Voice recognition (0/1)                 *
+        AU_Voice_ID     Voice ID (1-53)                         see [Voice ID List]
+        AU_AiboSound    AiboSound detection (0/1)               *
+        AU_AiboSound_ID AiboSound ID (1-35)                     see [AiboSound ID List]
+        AU_AiboTone     AiboTone detection (0/1)                *
+        AU_AiboTone_ID  AiboTone ID (1-68)                      see [AiboTone ID List]
+
+        Temp_Hi         Temperature at which operation is suppressed (0/1) (for safety, a forced shutdown will be executed in 20 seconds).
+
+
+
+        Head_Tilt       Head: vertical (up-down) angle 1 [degrees]
+        Head_Tilt_2     Head: vertical (up-down) angle 2 [degrees]
+        Head_Pan        Head: horizontal (left-right) angle [degrees]
+        Mouth           Mouth: Amount open [degrees]
+        LFLeg_1         Left-front leg J1 (hip joint): angle in front/back direction [degrees]
+        LFLeg_2         Left-front leg J1 (hip joint): angle in left/right direction [degrees]
+        LFLeg_3         Left-front leg J2 (knee joint): angle in front/back direction [degrees]
+        LRLeg_1         Left-hind leg J1 (hip joint): angle in front/back direction [degrees]
+        LRLeg_2         Left-hind leg J1 (hip joint): angle in left/right direction [degrees]
+        LRLeg_3         Left-hind leg J2 (knee joint): angle in front/back direction [degrees]
+        RFLeg_1         Right-front leg J1 (hip joint): angle in front/back direction [degrees]
+        RFLeg_2         Right-front leg J1 (hip joint): angle in left/right direction [degrees]
+        RFLeg_3         Right-front leg J2 (knee joint): angle in front/back direction [degrees]
+        RRLeg_1         Right-hind leg J1 (hip joint): angle in front/back direction [degrees]
+        RRLeg_2         Right-hind leg J1 (hip joint): angle in left/right direction [degrees]
+        RRLeg_3         Right-hind leg J2 (knee joint): angle in front/back direction [degrees]
+        Tail_Pan        Tail: horizontal (left/right) angle [degrees]
+        Tail_Tilt       Tail: Vertical (up/down) angle [degrees]
+
+        Batt_Rest       Battery charge remainder [%]
+        Batt_Temp       Battery temperature [C]
+
+        Distance_Cliff  Distance to cliff [mm]
+        Distance        Distance to obstacle [mm]
+
+        Head_ON         Head sensor pressed (0/1)                  *
+        Head_LONG       Head sensor pressed for 3 seconds or more (0/1)     *
+
+        BackF_ON        Front back sensor was pressed (0/1)                 *
+        BackM_ON        Middle back sensor was pressed (0/1)                *
+        BackR_ON        Rear back sensor was pressed (0/1)                  *
+        BackFR_LONG     Front and rear back sensor and was pressed for 3 seconds or longer (0/1)   *
+        BackF_Jaw_LONG  Front back and chin back sensor was pressed for 3 seconds or longer (0/1)  *
+        Back_Pat        Back sensors were pet (0/1)    *
+        BackR_Hit       Back sensor was hit (0/1)      *
+
+        Jaw_ON          Chin sensor was pressed (0/1)                  *
+
+        RFLeg_ON        Right front paw sensor was pressed (0/1)       *
+        RFLeg_OFF       Right front paw sensor was released (0/1)      *
+        LFLeg_ON        Left front paw sensor was pressed (0/1)        *
+        LFLeg_OFF       Left front paw sensor was released (0/1)       *
+        RRLeg_ON        Right hind paw sensor was pressed (0/1)        *
+        RRLeg_OFF       Right hind paw sensor was released (0/1)       *
+        LRLeg_ON        Left hind paw sensor was pressed (0/1)         *
+        LRLeg_OFF       Left hind paw sensor was released (0/1)        *
+
+         * These values will not automatically return to 0 once they are set by sensors.
+            You have to use SET to return them to 0.
+
+
+   [Voice ID List]
+
+        ID                Word
+        1                AIBO
+        2                What's your name?
+        3                Say hello
+        4                Shake paw
+        5                Morning
+        6                Hello
+        7                Good night
+        8                See you
+        9                How are you?
+        10               Hey AIBO
+        11               Thanks
+        12               Sorry
+        13               Cheer up
+        14               Banzai
+        15               That's right
+        16               That's wrong
+        17               Good AIBO
+        18               Don't do that
+        19               Let's play!
+        20               Sing a song
+        21               Dance
+        22               Show time
+        23               Pose for me
+        24               Clown around
+        25               Show off
+        26               Say message
+        27               Let's be secret
+        28               Open sesame
+        29               Happy day
+        30               Stand up
+        31               Lie down
+        32               Sit down
+        33               Turn right
+        34               Turn left
+        35               Go forward
+        36               Go backward
+        37               Go ahead
+        38               Stop
+        39               Faster
+        40               Slow down
+        41               Pink ball
+        42               Right leg kick
+        43               Right leg touch
+        44               Left leg kick
+        45               Left leg touch
+        46               Ready set go
+        47               You won
+        48               You lost
+        49               Action one
+        50               Action two
+        51               Action three
+        52               Action four
+        53               Action five
+
+
+
+   [AiboSound ID List]
+        ID       Description                                             MIDI filename *
+        1        Start communicating with other AIBO                     AS01_Start_AC.mid
+        2        Starts media link mode.(1)                              AS02_Start_ML1.mid
+        3        Starts media link mode.(2)                              AS03_Start_ML2.mid
+        4        Starts media link mode.(3)                              AS04_Start_ML3.mid
+        5        Ends media link mode, and returns to autonomous mode.   AS05_End_ML.mid
+        6        Raises a front paw to say hello.                        AS06_Hello.mid
+        7        Waves a front paw to say goodbye.                       AS07_Bye.mid
+        8        Lies on its stomach and pretends to sleep.              AS08_Sleep.mid
+        9        Gives a short nod.                                      AS09_Nod_Short.mid
+        10       Gives a long nod.                                       AS10_Nod_Long.mid
+        11       Shows great expectation.                                AS11_Expect.mid
+        12       Responds positively.                                    AS12_Yes.mid
+        13       Responds negatively.                                    AS13_No.mid
+        14       Responds questioningly.                                 AS14_Question.mid
+        15       Pose of joy.                                            AS15_Joy.mid
+        16       Pose of great joy.                                      AS16_Happy.mid
+        17       Pose of reluctance.                                     AS17_Disgust.mid
+        18       Pose of surprise.                                       AS18_Surprise.mid
+        19       Pose of sadness.                                        AS19_Sad.mid
+        20       Pose of relieved look.                                  AS20_Relief.mid
+        21       Requests and desires.                                   AS21_Appeal.mid
+        22       Performs various characteristic actions.                AS22_Action.mid
+        23       Dances.                                                 AS23_Dance.mid
+        24       Sings.(1)                                               AS24_Song1.mid
+        25       Sings.(2)                                               AS25_Song2.mid
+        26       Performs favorite dance.                                AS26_Fav_Dance.mid
+        27       Pose of fear.                                           AS27_Fear.mid
+        28       Bows.                                                   AS28_Greet.mid
+        29       Poses for photo opportunity.                            AS29_Pose.mid
+        30       Raises both front paws.                                 AS30_Cheer.mid
+        31       Pose of caution.                                        AS31_Look.mid
+        32       Pose of shyness.                                        AS32_Abash.mid
+        33       Acts charmingly.                                        AS33_Charm.mid
+        34       Tells you its characteristic type.                      AS34_Type_Check.mid
+        35       Notices incoming call.                                  AS35_Call.mid
+
+        * MIDI files are provided under Sample/AiboSound folder.
+
+
+
+   [AiboTone ID List]
+
+        ID               Tones (3tones)              MIDI filename *
+        1                C5  D5  E5                  AT01.mid
+        2                C5  E5  D5                  AT02.mid
+        3                E5  C5  D5                  AT03.mid
+        4                E5  D5  C5                  AT04.mid
+        5                G5  C5  D5                  AT05.mid
+        6                G5  D5  C5                  AT06.mid
+        7                C5  G5  D5                  AT07.mid
+        8                C5  D5  G5                  AT08.mid
+        9                D5  E5  C5                  AT09.mid
+        10               D5  C5  E5                  AT10.mid
+        11               C5  Eb5 G5                  AT11.mid
+        12               C5  G5  Eb5                 AT12.mid
+        13               G5  Eb5 C5                  AT13.mid
+        14               C5  E5  F5                  AT14.mid
+        15               C5  F5  E5                  AT15.mid
+        16               F5  C5  E5                  AT16.mid
+        17               F5  E5  C5                  AT17.mid
+        18               C5  F5  G5                  AT18.mid
+        19               C5  G5  F5                  AT19.mid
+        20               G5  C5  F5                  AT20.mid
+        21               G5  F5  C5                  AT21.mid
+        22               F5  C5  G5                  AT22.mid
+        23               C5  D5  F5                  AT23.mid
+        24               Eb5 C5  F5                  AT24.mid
+        25               C5  F5  D5                  AT25.mid
+        26               D5  F5  C5                  AT26.mid
+        27               D5  C5  F5                  AT27.mid
+        28               F5  D5  C5                  AT28.mid
+        29               F5  C5  D5                  AT29.mid
+        30               Eb5 F5  C5                  AT30.mid
+        31               C5  Eb5 F5                  AT31.mid
+        32               C5  F5  Eb5                 AT32.mid
+        33               F5  C5  Eb5                 AT33.mid
+        34               F5  Eb5 C5                  AT34.mid
+        35               C6  D6  E6                  AT35.mid
+        36               C6  E6  D6                  AT36.mid
+        37               E6  C6  D6                  AT37.mid
+        38               E6  D6  E6                  AT38.mid
+        39               G6  C6  D6                  AT39.mid
+        40               G6  D6  C6                  AT40.mid
+        41               C6  G6  D6                  AT41.mid
+        42               C6  D6  G6                  AT42.mid
+        43               D6  E6  C6                  AT43.mid
+        44               D6  C6  E6                  AT44.mid
+        45               C6  Eb6 G6                  AT45.mid
+        46               C6  G6  Eb6                 AT46.mid
+        47               G6  Eb6 C6                  AT47.mid
+        48               C6  E6  F6                  AT48.mid
+        49               C6  F6  E6                  AT49.mid
+        50               F6  C6  E6                  AT50.mid
+        51               F6  E6  C6                  AT51.mid
+        52               C6  F6  G6                  AT52.mid
+        53               C6  G6  F6                  AT53.mid
+        54               G6  C6  F6                  AT54.mid
+        55               G6  F6  C6                  AT55.mid
+        56               F6  C6  G6                  AT56.mid
+        57               C6  D6  F6                  AT57.mid
+        58               Eb6 C6  F6                  AT58.mid
+        59               C6  F6  D6                  AT59.mid
+        60               D6  F6  C6                  AT60.mid
+        61               D6  C6  F6                  AT61.mid
+        62               F6  D6  C6                  AT62.mid
+        63               F6  C6  D6                  AT63.mid
+        64               Eb6 F6  C6                  AT64.mid
+        65               C6  Eb6 F6                  AT65.mid
+        66               C6  F6  Eb6                 AT66.mid
+        67               F6  C6  Eb6                 AT67.mid
+        68               F6  Eb6 C6                  AT68.mid
+
+        * MIDI files are provided under Sample/AiboTone folder.
+
+
+ [How to start R-CODE]
+
+1) User programs
+   You can make your own R-CODE script program and copy it to /OPEN-R/APP/PC/AMS/R-CODE.R
+   on your AIBO Programming Memory Stick. The R-CODE script will be executed by AIBO.
+
+2) Sample programs
+   Copy Redist7/sample/Maze.R from Redist7_ver1.zip to
+   /OPEN-R/APP/PC/AMS/R-CODE.R on your AIBO Programming Memory Stick.
+   You should rename the file Maze.R to R-CODE.R.
+
+
+ [WirelessLAN communication]
+
+********************************************************************
+
+You can send a program written in R-CODE to AIBO via wireless LAN 
+transmission. Authentication with ID and 
+password is enabled by default. To disable authentication:
+
+Delete 
+      /OPEN-R/APP/DATA/P/OWNER.TXT 
+and create
+      /OPEN-R/APP/PC/AMS/NOAUTH.CFG
+
+Now an ID and password will not be required.
+The contents of NOAUTH.CFG can be anything (size=0 is recommended)
+
+If you want to make a Windows application using authentication,
+please use the NsmAuth library.
+
+Please note that if no authentication is done or network security is 
+not properly set, other PCs may have access to the same AIBO.
+
+Specification for the connection is as follows:
+
+     Connection port : 21002 tcp
+     Protocol : no flow control
+     Code     : 8 bit ASCII
+
+Sample (using telnet)
+------------------------------------------------------------------
+C:\>telnet.10.0.1.1 21002                       <== DOS prompt
+
+============================================
+R-CODE ver2.0 (2004/05/01)                      <== A header like this will 
+============================================      be displayed when a connection 
+string_buf   1 *  256K =  256K (used  0.1%)       is made.
+dictionary   8 *   32K =  256K (used  0.7%)
+stack        4 *   32K =  128K (used  0.3%)
+statement   24 *   32K =  768K (used  0.0%)
+on_call     12 *   64  =  768  (used  0.0%)
+============================================
+free mem.   6998912
+============================================
+<READY>                                         <== You can input from here.
+PLAY:ACTION:STAND                               <== You can execute the command "stand" directly.
+EDIT                                            <== Your program can be sent from EDIT to END.
+  FOR:i:1:10                                    <== This program repeats the motion
+    PLAY:ACTION:SIT                                 "sit and stand" 10 times.
+    WAIT
+    PLAY:ACTION:STAND
+    WAIT
+  NEXT
+END
+RUN                                             <== Run your program.
+Åc
+@DISS                                           <== @DISS cuts the Connection.
+
+C:\>
+
+------------------------------------------------
+
+
+[LED, MIDI Table]
+
+The following information is necessary to make *.LED contents.  
+The LED file format is the same as the MIDI file format.
+
+A gradation of 128 means lighting intensity corresponds to the Velocity value.
+A gradation of 2 means the LED is on when Velocity==0, and the LED is off when Velocity!=0.
+LEDs from the A side(FaceA01 - FaceA14) and the B side(FaceB01 - FaceB14) can't be used at the same time. (ex. A1 and B2)
+Refer to the "Model Information for ERS-7" document (OPEN-R SDK download) for the positions of the FaceAXX/BXX LEDs.
+
+Note name  Note No  LED name      Gradation    LED position
+C-1Å`B0    0Å`23    [unused]
+C1         24       FaceB01       128            B1
+Db1        25       FaceB02       128            B2
+D1         26       FaceB03       128            B3
+Eb1        27       FaceB04       128            B4
+E1         28       FaceB05       128            B5
+F1         29       FaceB06       128            B6
+F#1        30       FaceB07       128            B7
+G1         31       FaceB08       128            B8
+Ab1        32       FaceB09       128            B9
+A1         33       FaceB10       128            B10
+Bb1        34       FaceB11       128            B11
+B1         35       FaceB12       128            B12
+C2         36       FaceB13       128            B13
+Db2        37       FaceB14       128            B14
+D2Å`B2     38Å`47   [unused]
+C3         48       FaceA01       128            A1
+Db3        49       FaceA02       128            A2
+D3         50       FaceA03       128            A3
+Eb3        51       FaceA04       128            A4
+E3         52       FaceA05       128            A5
+F3         53       FaceA06       128            A1
+F#3        54       FaceA07       128            A2
+G3         55       FaceA08       128            A3
+Ab3        56       FaceA09       128            A4
+A3         57       FaceA10       128            A5
+Bb3        58       FaceA11       128            A11
+B3         59       FaceA12       128            A12
+C4         60       FaceA13       128            A13
+Db4        61       FaceA14       128            A14
+D4Å`B4     62Å`71   [unused]
+C5         72       Mode(R)       2
+Db5        73       Mode(G)       2
+D5         74       Mode(B)       2
+Eb5        75       Wireless      2
+E5Å`A5     76Å`81   [unused]
+Bb5        82       HeadTouchAmber              2
+B5         83       HeadTouchWhite              2
+C6         84       BackTouchFrontBlue          128
+Db6        85       BackTouchFrontWhite         128
+D6         86       BackTouchMiddleYellow       128
+Eb6        87       BackTouchMiddleWhite        128
+E6         88       BackTouchRearRed            128
+F6         89       BackTouchRearWhite          128
+F#6Å`G9    90Å`127  [unused]
+
+[ Action list]
+
+This is the action list that is used in the command;
+PLAY:ACTION:<action>[:<arg1>:<arg2>:<arg3>]
+
+---------------------------------------------------------------------------
+Action Name                    
+---------------------------------------------------------------------------
+SIT                             Sit
+STAND                           Stand
+LIE                             Lie down (1)
+WALK                            Walk
+STOP_WALK                       Stop walking
+TURN                            Turn around
+KICK                            Kick
+TOUCH                           Touch
+MOVE_HEAD                       Look in the specified direction
+TRACK_HEAD                      Track an object
+SEARCH                          Search for an object
+SEARCH.HEAD.NORMAL              Search in the current head direction
+SEARCH.HEAD.SLOW                Search slowly in the current head direction
+SEARCH.HEAD.NORMALCENT          Look forward and search
+SEARCH.HEAD.SLOWCENT            Look forward and search slowly
+SEARCH.HEAD.LOWCENT             Look down and search
+PALONE.AUTO.EAR                 Move both ears
+PALONE.AUTO.EARSTOP             Stop moving ears
+PALONE.AUTO.TAILV               Wag tail up and down
+PALONE.AUTO.TAILH               Wag tail left and right
+PALONE.AUTO.TAILROT             Rotate tail
+PALONE.AUTO.TAILD               Lower tail
+PALONE.AUTO.TAILSTOP            Stop moving tail
+MOVE.HEAD.FAST                  Look quickly in the specified direction
+MOVE.HEAD.NORMAL                Look in the specified direction
+MOVE.HEAD.SLOW                  Look slowly in the specified direction
+MOVE.TURN.NORMAL                Turn around
+MOVE.TURN.SLOW                  Turn around slowly
+MOVE.MOVE.NORMAL                Walk
+MOVE.MOVE.SLOW                  Walk slowly
+CHGPOS.WALK.NORMAL              Change to walking posture
+CONTACT.RIGHT.TOUCH             Sit and touch with right paw
+CONTACT.RIGHT.TOUCH2            Crouch and touch with right paw
+CONTACT.FRONT.HEAD              Head the ball
+CHGPOS.STATR.NORMAL             Lie down (2)
+SMESS.NOTICE.NOTICE1            Debug notice 1
+SMESS.NOTICE.NOTICE2            Debug notice 2
+SMESS.ERROR.ERROR1              Debug error notice 1
+SMESS.ERROR.ERROR2              Debug error notice 2
+SMESS.MODE.CLEAR                Clear debug indication
+CLIFF_DETECT_ON                 Cliff detect on ( default )
+CLIFF_DETECT_OFF                Cliff detect off
+
+--------------------------------------------------------------------------------
+* "Windows" is a registered trademark of Microsoft Corporation in the US and other countries.
