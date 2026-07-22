@@ -1,0 +1,44 @@
+
+digraph G {
+  graph [
+    pad="0.3",
+    nodesep="0.35",
+    ranksep="0.5",
+    splines=true,
+    bgcolor="white"
+  ];
+  node [
+    shape=box,
+    style="rounded,filled",
+    color="#263238",
+    fillcolor="#F7F3E8",
+    fontname="Helvetica",
+    fontsize=11,
+    margin="0.12,0.08"
+  ];
+  edge [
+    color="#455A64",
+    fontname="Helvetica",
+    fontsize=10,
+    arrowsize=0.7
+  ];
+
+  rankdir=TB;
+
+  Start [label="Start /\nLoad Stored Poses", fillcolor="#E8F1E7"];
+  Scan [label="Head Scan\nPosition", fillcolor="#E7EEF7"];
+  Compare [label="When Distance\nbecame < 300", fillcolor="#FBE9D0"];
+  Obstacle [label="When there was\nan obstacle in front", fillcolor="#F7D9D9"];
+  Turn [label="Turn / Shift /\nAdvance", fillcolor="#F6E7D8"];
+  Forward [label="Forward Walk", fillcolor="#F6E7D8"];
+  Retry [label="Reset Sample /\nScan Counter", fillcolor="#EFE3F8"];
+
+  Start -> Scan;
+  Scan -> Compare;
+  Compare -> Forward [label="clear"];
+  Compare -> Obstacle [label="blocked"];
+  Obstacle -> Turn;
+  Turn -> Retry;
+  Retry -> Scan [label="re-sample"];
+  Forward -> Scan [label="next check"];
+}

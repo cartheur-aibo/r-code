@@ -1,0 +1,38 @@
+
+digraph G {
+  graph [
+    pad="0.3",
+    nodesep="0.35",
+    ranksep="0.5",
+    splines=true,
+    bgcolor="white"
+  ];
+  node [
+    shape=box,
+    style="rounded,filled",
+    color="#263238",
+    fillcolor="#F7F3E8",
+    fontname="Helvetica",
+    fontsize=11,
+    margin="0.12,0.08"
+  ];
+  edge [
+    color="#455A64",
+    fontname="Helvetica",
+    fontsize=10,
+    arrowsize=0.7
+  ];
+
+  rankdir=TB;
+
+  Boot [label="Boot /\nSafe Pose", fillcolor="#E8F1E7"];
+  Walk [label="Repeat\nForward Walk", fillcolor="#FBE9D0"];
+  Sense [label="Sense Fall\nState", fillcolor="#E7EEF7"];
+  Recover [label="Recover", fillcolor="#F7D9D9"];
+
+  Boot -> Walk;
+  Walk -> Sense;
+  Sense -> Walk [label="stable"];
+  Sense -> Recover [label="fallen"];
+  Recover -> Boot [label="reset posture"];
+}

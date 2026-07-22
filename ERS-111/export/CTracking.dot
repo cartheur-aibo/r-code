@@ -1,0 +1,34 @@
+
+digraph G {
+  graph [
+    pad="0.3",
+    nodesep="0.35",
+    ranksep="0.5",
+    splines=true,
+    bgcolor="white"
+  ];
+  node [
+    shape=box,
+    style="rounded,filled",
+    color="#263238",
+    fillcolor="#F7F3E8",
+    fontname="Helvetica",
+    fontsize=11,
+    margin="0.12,0.08"
+  ];
+  edge [
+    color="#455A64",
+    fontname="Helvetica",
+    fontsize=10,
+    arrowsize=0.7
+  ];
+
+  rankdir=TB;
+
+  Start [label="Start"];
+  Track [label="C-Tracking\nActivate Tracking", fillcolor="#FBE9D0"];
+  Stop [label="Quit /\nHand Back Control", fillcolor="#E7EEF7"];
+
+  Start -> Track;
+  Track -> Stop [label="done"];
+}

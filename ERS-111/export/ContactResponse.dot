@@ -1,0 +1,41 @@
+
+digraph G {
+  graph [
+    pad="0.3",
+    nodesep="0.35",
+    ranksep="0.5",
+    splines=true,
+    bgcolor="white"
+  ];
+  node [
+    shape=box,
+    style="rounded,filled",
+    color="#263238",
+    fillcolor="#F7F3E8",
+    fontname="Helvetica",
+    fontsize=11,
+    margin="0.12,0.08"
+  ];
+  edge [
+    color="#455A64",
+    fontname="Helvetica",
+    fontsize=10,
+    arrowsize=0.7
+  ];
+
+  rankdir=TB;
+
+  Boot [label="Boot /\nSafe Pose", fillcolor="#E8F1E7"];
+  Sense [label="Sense /\nDecide", fillcolor="#E7EEF7"];
+  Hug [label="Happy Hug\nResponse", fillcolor="#F6E7D8"];
+  Idle [label="Idle Thought", fillcolor="#FBE9D0"];
+  Recover [label="Recover", fillcolor="#F7D9D9"];
+
+  Boot -> Idle;
+  Idle -> Sense;
+  Sense -> Hug [label="contact"];
+  Sense -> Idle [label="none"];
+  Hug -> Sense [label="complete"];
+  Sense -> Recover [label="instability"];
+  Recover -> Boot;
+}

@@ -1,0 +1,43 @@
+
+digraph G {
+  graph [
+    pad="0.3",
+    nodesep="0.35",
+    ranksep="0.5",
+    splines=true,
+    bgcolor="white"
+  ];
+  node [
+    shape=box,
+    style="rounded,filled",
+    color="#263238",
+    fillcolor="#F7F3E8",
+    fontname="Helvetica",
+    fontsize=11,
+    margin="0.12,0.08"
+  ];
+  edge [
+    color="#455A64",
+    fontname="Helvetica",
+    fontsize=10,
+    arrowsize=0.7
+  ];
+
+  rankdir=LR;
+
+  Boot [label="Boot /\nSafe Pose", fillcolor="#E8F1E7"];
+  Sense [label="Sense /\nDecide", fillcolor="#FBE9D0"];
+  Action [label="Action\nLoop", fillcolor="#F6E7D8"];
+  Sync [label="Synchronize", fillcolor="#E7EEF7"];
+  Recover [label="Recover", fillcolor="#F7D9D9"];
+  Specialize [label="Task-Specific\nExtension", fillcolor="#EFE3F8"];
+
+  Boot -> Sense;
+  Sense -> Action [label="continue"];
+  Action -> Sync;
+  Sync -> Sense [label="reevaluate"];
+  Sense -> Recover [label="fall / fault"];
+  Recover -> Boot [label="restore"];
+  Sense -> Specialize [label="ball, obstacle,\ncontact, expression"];
+  Specialize -> Sync [label="return"];
+}

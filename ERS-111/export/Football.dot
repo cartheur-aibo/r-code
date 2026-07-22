@@ -1,0 +1,48 @@
+
+digraph G {
+  graph [
+    pad="0.3",
+    nodesep="0.35",
+    ranksep="0.5",
+    splines=true,
+    bgcolor="white"
+  ];
+  node [
+    shape=box,
+    style="rounded,filled",
+    color="#263238",
+    fillcolor="#F7F3E8",
+    fontname="Helvetica",
+    fontsize=11,
+    margin="0.12,0.08"
+  ];
+  edge [
+    color="#455A64",
+    fontname="Helvetica",
+    fontsize=10,
+    arrowsize=0.7
+  ];
+
+  rankdir=TB;
+
+  Boot [label="Boot /\nSafe Pose", fillcolor="#E8F1E7"];
+  Search [label="Set Search Mode /\nSearch Turn", fillcolor="#E7EEF7"];
+  Track [label="Start Ball Tracking /\nApproach by Head Angle", fillcolor="#FBE9D0"];
+  Advance [label="Advance Left /\nAdvance Right /\nForward Walk", fillcolor="#F6E7D8"];
+  Kick [label="Left Kick /\nRight Kick", fillcolor="#EFE3F8"];
+  Lost [label="Increment / Reset\nLost Counter", fillcolor="#F7D9D9"];
+  Recover [label="Recover", fillcolor="#F7D9D9"];
+
+  Boot -> Search;
+  Search -> Track [label="ball found"];
+  Search -> Lost [label="not found"];
+  Lost -> Search [label="resume scan"];
+  Track -> Advance [label="aligned"];
+  Track -> Search [label="head reorient"];
+  Advance -> Kick [label="within range"];
+  Advance -> Track [label="adjust"];
+  Kick -> Search [label="resume"];
+  Track -> Recover [label="fall"];
+  Advance -> Recover [label="fall"];
+  Recover -> Boot [label="restore"];
+}

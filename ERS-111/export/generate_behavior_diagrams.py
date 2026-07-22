@@ -37,6 +37,37 @@ digraph G {
 
 
 DIAGRAMS = {
+    "CommandRelationships": COMMON + r'''
+  rankdir=LR;
+  graph [fontname="Helvetica"];
+
+  node [shape=box, style="rounded,filled", margin="0.14,0.1"];
+
+  Start [label="Program Start", fillcolor="#E8F1E7"];
+  MainLoop [label="Main Loop\n:label / GO / DO-LOOP", fillcolor="#FBE9D0"];
+  Sense [label="Conditions\nIF / CSET / SWITCH / CASE", fillcolor="#E7EEF7"];
+  State [label="State & Data\nSET / LET / ADD / MOD /\nDIV / MUL / RND / LOAD / SAVE / DEF", fillcolor="#F7F3E8"];
+  Action [label="Body & Media\nPOSE / MOVE / PLAY / STOP / QUIT / REC", fillcolor="#F6E7D8"];
+  Sync [label="Timing & Gating\nWAIT / WHILE-WEND /\nREPEAT-UNTIL / FOR-NEXT", fillcolor="#EFE3F8"];
+  Subroutine [label="Subroutines & Events\nCALL / RETURN / ONCALL / RESUME / EXIT", fillcolor="#F7D9D9"];
+  EndBlock [label="Block Ends\nELSE / ENDIF / END", fillcolor="#F1F5F9"];
+
+  Start -> State [label="init"];
+  State -> MainLoop [label="enter"];
+  MainLoop -> Sense [label="poll / branch"];
+  Sense -> Action [label="react"];
+  Sense -> State [label="update context"];
+  Sense -> Subroutine [label="delegate"];
+  Action -> Sync [label="complete / pace"];
+  Sync -> MainLoop [label="reevaluate"];
+  State -> Sense [label="inputs ready"];
+  Subroutine -> State [label="return values"];
+  Subroutine -> MainLoop [label="resume flow"];
+  EndBlock -> MainLoop [label="close block"];
+  Sense -> EndBlock [label="block form"];
+  Action -> MainLoop [label="GO:label"];
+}
+''',
     "EmbodiedBehaviors": COMMON + r'''
   rankdir=LR;
 
@@ -166,9 +197,14 @@ DIAGRAMS = {
 def render(name: str, dot_source: str) -> None:
     dot_path = ROOT / f"{name}.dot"
     pdf_path = ROOT / f"{name}.pdf"
+    jpg_path = ROOT / f"{name}.jpg"
     dot_path.write_text(dot_source, encoding="ascii")
     subprocess.run(
         ["dot", "-Tpdf", str(dot_path), "-o", str(pdf_path)],
+        check=True,
+    )
+    subprocess.run(
+        ["dot", "-Tjpg", str(dot_path), "-o", str(jpg_path)],
         check=True,
     )
 
