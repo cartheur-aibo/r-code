@@ -6,7 +6,18 @@ Diagram outputs:
 
 ## What The Diagram Shows
 
-The diagram groups the ERS-111 sample commands by role and shows how they usually relate during execution:
+The diagram groups the ERS-111 sample commands into three cleaner phases and shows how they usually relate during execution:
+
+- `Setup`
+Initial entry and state preparation.
+
+- `Core Flow`
+The repeating reactive cycle used by most sample scripts.
+
+- `Support Flow`
+Extra control structures that assist the main loop.
+
+Inside those phases, the command families are:
 
 - `Program Start`
 Initial entry into the script.
@@ -43,5 +54,17 @@ with side paths for:
 - subroutine delegation and return
 - direct `GO:label` jumps back to the main loop
 - block-based branching with `ELSE` and `ENDIF`
+
+## Why This Version Is Cleaner
+
+The updated layout separates:
+
+- preparation work from recurring runtime behavior
+- the main reactive loop from helper mechanisms
+- direct action flow from structural control flow
+
+That makes it easier to read the diagram from left to right as:
+
+`setup -> evaluate -> act -> wait -> repeat`
 
 This is meant to be an efficient map of how the command families fit together, rather than a full syntax reference.

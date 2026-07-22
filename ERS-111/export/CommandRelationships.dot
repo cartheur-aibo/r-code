@@ -24,31 +24,51 @@ digraph G {
   ];
 
   rankdir=LR;
-  graph [fontname="Helvetica"];
+  graph [fontname="Helvetica", compound=true];
 
   node [shape=box, style="rounded,filled", margin="0.14,0.1"];
 
-  Start [label="Program Start", fillcolor="#E8F1E7"];
-  MainLoop [label="Main Loop\n:label / GO / DO-LOOP", fillcolor="#FBE9D0"];
-  Sense [label="Conditions\nIF / CSET / SWITCH / CASE", fillcolor="#E7EEF7"];
-  State [label="State & Data\nSET / LET / ADD / MOD /\nDIV / MUL / RND / LOAD / SAVE / DEF", fillcolor="#F7F3E8"];
-  Action [label="Body & Media\nPOSE / MOVE / PLAY / STOP / QUIT / REC", fillcolor="#F6E7D8"];
-  Sync [label="Timing & Gating\nWAIT / WHILE-WEND /\nREPEAT-UNTIL / FOR-NEXT", fillcolor="#EFE3F8"];
-  Subroutine [label="Subroutines & Events\nCALL / RETURN / ONCALL / RESUME / EXIT", fillcolor="#F7D9D9"];
-  EndBlock [label="Block Ends\nELSE / ENDIF / END", fillcolor="#F1F5F9"];
+  subgraph cluster_setup {
+    label="Setup";
+    color="#C7D8C6";
+    style="rounded";
+    Start [label="Program Start", fillcolor="#E8F1E7"];
+    State [label="State & Data\nSET / LET / ADD / MOD /\nDIV / MUL / RND / LOAD / SAVE / DEF", fillcolor="#F7F3E8"];
+  }
 
-  Start -> State [label="init"];
-  State -> MainLoop [label="enter"];
-  MainLoop -> Sense [label="poll / branch"];
-  Sense -> Action [label="react"];
-  Sense -> State [label="update context"];
-  Sense -> Subroutine [label="delegate"];
-  Action -> Sync [label="complete / pace"];
+  subgraph cluster_flow {
+    label="Core Flow";
+    color="#D9CBAE";
+    style="rounded";
+    MainLoop [label="Main Loop\n:label / GO / DO-LOOP", fillcolor="#FBE9D0"];
+    Sense [label="Conditions\nIF / CSET / SWITCH / CASE", fillcolor="#E7EEF7"];
+    Action [label="Body & Media\nPOSE / MOVE / PLAY / STOP / QUIT / REC", fillcolor="#F6E7D8"];
+    Sync [label="Timing & Gating\nWAIT / WHILE-WEND /\nREPEAT-UNTIL / FOR-NEXT", fillcolor="#EFE3F8"];
+  }
+
+  subgraph cluster_support {
+    label="Support Flow";
+    color="#D8C7DE";
+    style="rounded";
+    Subroutine [label="Subroutines & Events\nCALL / RETURN / ONCALL / RESUME / EXIT", fillcolor="#F7D9D9"];
+    EndBlock [label="Block Ends\nELSE / ENDIF / END", fillcolor="#F1F5F9"];
+  }
+
+  Start -> State [label="initialize"];
+  State -> MainLoop [label="enter main loop"];
+  MainLoop -> Sense [label="poll / test"];
+  Sense -> Action [label="condition matched"];
+  Action -> Sync [label="perform / pace"];
   Sync -> MainLoop [label="reevaluate"];
-  State -> Sense [label="inputs ready"];
-  Subroutine -> State [label="return values"];
-  Subroutine -> MainLoop [label="resume flow"];
-  EndBlock -> MainLoop [label="close block"];
-  Sense -> EndBlock [label="block form"];
+
+  Sense -> State [label="set or update state"];
+  State -> Sense [label="read variables"];
+
+  Sense -> Subroutine [label="CALL / ONCALL"];
+  Subroutine -> State [label="return data"];
+  Subroutine -> MainLoop [label="resume"];
+
+  Sense -> EndBlock [label="THEN / ELSE form"];
+  EndBlock -> MainLoop [label="block closes"];
   Action -> MainLoop [label="GO:label"];
 }
